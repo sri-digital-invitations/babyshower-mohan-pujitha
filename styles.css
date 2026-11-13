@@ -1,6 +1,7 @@
 *{box-sizing:border-box}
 :root{--maroon:#7a1728;--deep:#541b20;--gold:#c79535;--gold-light:#e8cc8e;--cream:#fff8e9;--paper:#fffdf6;--green:#355c38;--ink:#4d3829;--muted:#8b7662}
 html{scroll-behavior:smooth}
+header img{width:180px;max-width:40vw}
 body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans","Noto Sans Tamil",sans-serif;line-height:1.65}
 .top-garland{height:28px;overflow:hidden;text-align:center;letter-spacing:12px;color:var(--gold);background:#f5e6c4;font-size:15px}
 .site-header{height:78px;padding:10px clamp(18px,6vw,82px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ead9b8;background:rgba(255,253,246,.92)}
