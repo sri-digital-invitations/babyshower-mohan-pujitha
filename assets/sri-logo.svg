@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+<title id="title">SRI Digital Invitations</title>
+<desc id="desc">A lotus-inspired gold emblem above the SRI wordmark in maroon.</desc>
+<rect width="900" height="360" fill="#FFF8E8"/>
+<g fill="none" stroke="#D4A437" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M450 28 C410 66 414 101 450 119 C486 101 490 66 450 28Z"/>
+  <path d="M450 119 C397 82 365 93 356 127 C392 145 424 139 450 119Z"/>
+  <path d="M450 119 C503 82 535 93 544 127 C508 145 476 139 450 119Z"/>
+  <path d="M450 117 C430 90 431 66 450 48 C469 66 470 90 450 117Z"/>
+  <path d="M340 155 C285 170 256 188 230 216"/>
+  <path d="M560 155 C615 170 644 188 670 216"/>
+</g>
+<text x="450" y="248" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="142" font-weight="bold" letter-spacing="5" fill="#7A0E23">SRI</text>
+<path d="M230 272 H670" stroke="#D4A437" stroke-width="3"/>
+<text x="450" y="315" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="35" letter-spacing="5" fill="#5A3525">DIGITAL INVITATIONS</text>
+</svg>
