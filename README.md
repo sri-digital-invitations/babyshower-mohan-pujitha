@@ -31,6 +31,7 @@ styles.css
 script.js
 assets/
   mohan-sai-pujitha-babyshower-poster.jpg
+  logo.svg
 ```
 Then open **Settings → Pages**:
 - Source: Deploy from a branch
