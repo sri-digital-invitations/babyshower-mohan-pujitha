@@ -1,0 +1,74 @@
+*{box-sizing:border-box}
+:root{--maroon:#7a1728;--deep:#541b20;--gold:#c79535;--gold-light:#e8cc8e;--cream:#fff8e9;--paper:#fffdf6;--green:#355c38;--ink:#4d3829;--muted:#8b7662}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans","Noto Sans Tamil",sans-serif;line-height:1.65}
+.top-garland{height:28px;overflow:hidden;text-align:center;letter-spacing:12px;color:var(--gold);background:#f5e6c4;font-size:15px}
+.site-header{height:78px;padding:10px clamp(18px,6vw,82px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ead9b8;background:rgba(255,253,246,.92)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--maroon);text-decoration:none}
+.brand-mark{font:700 30px Georgia,serif;letter-spacing:2px;color:var(--maroon)}
+.brand-name{font:600 10px "DM Sans",sans-serif;letter-spacing:2px;border-left:1px solid var(--gold);padding-left:10px}
+.language-toggle{border:1px solid var(--gold);background:transparent;color:var(--maroon);border-radius:24px;padding:9px 17px;font-weight:700;cursor:pointer}
+.section-shell{width:min(1120px,92%);margin-inline:auto}
+.hero{display:grid;grid-template-columns:1fr minmax(280px,.82fr);gap:clamp(28px,5vw,70px);align-items:center;padding-top:62px;padding-bottom:60px}
+.hero-copy{text-align:center;padding:10px 0}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:2.6px;color:var(--green);margin:0 0 14px}
+h1,h2,h3,p{margin-top:0}
+h1{font:600 clamp(43px,6vw,70px)/1.08 "Playfair Display",Georgia,serif;color:var(--maroon);margin-bottom:20px}
+h1 em{font-weight:500}
+.heart-rule{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--maroon);font-size:26px;margin:12px auto 18px}
+.heart-rule:before,.heart-rule:after{content:"";height:1px;width:74px;background:linear-gradient(90deg,transparent,var(--gold))}
+.heart-rule:after{transform:scaleX(-1)}
+.intro{font:italic 17px/1.8 "Playfair Display",Georgia,serif;max-width:520px;margin:0 auto 22px}
+.invited-line{color:var(--green);font-size:13px;font-weight:600}
+.couple-names{font:600 clamp(29px,4vw,42px) "Playfair Display",Georgia,serif;color:var(--maroon);margin:8px 0 22px}
+.couple-names span,.signature span{color:var(--gold);font-style:italic}
+.date-pill{display:inline-flex;gap:12px;align-items:center;border:1px solid var(--gold-light);border-radius:30px;padding:10px 18px;color:var(--deep);font-size:13px;font-weight:700;background:#fffaf0}
+.date-pill span{color:var(--gold)}
+.poster-frame{margin:0;padding:10px;background:#fffdf7;border:1px solid #e6d2a7;box-shadow:0 18px 48px rgba(89,54,22,.14);transform:rotate(.5deg)}
+.poster-frame img{display:block;width:100%;height:auto;max-height:720px;object-fit:contain}
+.poster-frame figcaption{text-align:center;color:var(--muted);font:italic 12px Georgia,serif;padding:8px 0 2px}
+.countdown-section{background:#f2e5c9;border:1px solid #ead8b0;border-radius:18px;padding:30px 20px;text-align:center;margin-bottom:72px}
+.countdown-section .eyebrow{margin-bottom:18px}
+.countdown{display:flex;justify-content:center;gap:clamp(16px,5vw,64px)}
+.countdown div{display:flex;flex-direction:column;min-width:58px}
+.countdown strong{font:600 clamp(30px,5vw,44px) "Playfair Display",Georgia,serif;color:var(--maroon);line-height:1.15}
+.countdown span{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:5px}
+.event-section{text-align:center;padding-bottom:70px}
+.section-heading{margin-bottom:28px}
+.small-flower{font-size:24px;color:var(--gold)}
+.section-heading .eyebrow{margin:6px 0}
+.section-heading h2,.rsvp-section h2{font:600 clamp(30px,4vw,42px) "Playfair Display",Georgia,serif;color:var(--maroon);margin-bottom:0}
+.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.detail-card{padding:26px 18px;background:var(--paper);border:1px solid #ead9b8;border-radius:15px;min-height:210px}
+.detail-icon{font-size:32px;color:var(--gold);line-height:1.2;margin-bottom:14px}
+.detail-label{font-size:10px;letter-spacing:2px;color:var(--green);font-weight:700;margin-bottom:8px}
+.detail-card h3{font:600 19px/1.4 "Playfair Display",Georgia,serif;color:var(--maroon);margin-bottom:6px}
+.detail-card p:not(.detail-label){font-size:13px;color:var(--muted);margin-bottom:10px}
+.text-link{font-size:13px;font-weight:700;color:var(--maroon);text-decoration:none;border-bottom:1px solid var(--gold-light);padding-bottom:2px}
+.primary-button,.secondary-button{display:inline-flex;justify-content:center;align-items:center;gap:10px;border:0;border-radius:28px;padding:13px 22px;font:700 13px "DM Sans",sans-serif;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.primary-button{background:var(--maroon);color:#fffaf0;box-shadow:0 7px 18px rgba(122,23,40,.16)}
+.secondary-button{background:#fffdf6;color:var(--maroon);border:1px solid #d9bd83}
+.primary-button:hover,.secondary-button:hover,.share-button:hover{transform:translateY(-2px)}
+.blessing-section{max-width:760px;text-align:center;padding:52px 24px;margin-bottom:54px;background:#f8efdD;border-top:1px solid #ead8b0;border-bottom:1px solid #ead8b0}
+.blessing-ornament{color:var(--gold);font-size:28px;margin-bottom:12px}
+.blessing{font:italic 22px/1.7 "Playfair Display",Georgia,serif;color:var(--deep);margin-bottom:12px}
+.with-love{font:italic 17px "Playfair Display",Georgia,serif;color:var(--green);margin-bottom:4px}
+.signature{font:italic 30px "Playfair Display",Georgia,serif;color:var(--maroon);margin-bottom:0}
+.rsvp-section{text-align:center;padding:10px 20px 66px}
+.rsvp-section h2{margin-bottom:8px}
+.rsvp-section>p:not(.eyebrow):not(.tiny-note){color:var(--muted)}
+.rsvp-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0 12px}
+.tiny-note{font-size:11px;color:var(--muted);max-width:520px;margin:0 auto}
+.share-section{text-align:center;padding:28px 18px;background:#f1e2c3;color:var(--deep)}
+.share-section p{font:italic 18px "Playfair Display",Georgia,serif;margin-bottom:12px}
+.share-button{background:transparent;border:1px solid var(--gold);border-radius:24px;padding:9px 18px;color:var(--maroon);font-weight:700;cursor:pointer;transition:transform .2s}
+.share-button span:first-child{color:var(--gold)}
+.site-footer{text-align:center;padding:26px 15px 32px;background:#5b1a27;color:#f8e9c8}
+.footer-brand{font:700 25px Georgia,serif;letter-spacing:2px}
+.footer-brand span{display:block;font:600 9px "DM Sans",sans-serif;letter-spacing:2.4px;margin-top:2px}
+.site-footer p{font-size:11px;color:#e4cda2;margin:10px 0 0}
+[lang="ta"] body{font-family:"Noto Sans Tamil","DM Sans",sans-serif}
+[lang="ta"] h1,[lang="ta"] h2,[lang="ta"] h3,[lang="ta"] .intro,[lang="ta"] .blessing,[lang="ta"] .signature{font-family:"Noto Sans Tamil",sans-serif}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:38px;gap:32px}.hero-copy{padding-inline:4px}.poster-frame{width:min(100%,480px);margin-inline:auto}.poster-frame img{max-height:none}.event-grid{grid-template-columns:1fr}.detail-card{min-height:0;padding:22px}.countdown-section{margin-bottom:48px}.blessing-section{padding:38px 20px}.blessing{font-size:19px}}
+@media(max-width:420px){.site-header{height:68px}.brand-mark{font-size:26px}.brand-name{font-size:8px;letter-spacing:1.4px}.countdown{gap:12px}.countdown div{min-width:52px}.countdown span{font-size:9px}.date-pill{font-size:11px;padding:9px 12px}.rsvp-actions>*{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
