@@ -50,8 +50,7 @@ Deno.serve(async (req) => {
     );
   }
 
-  const expectedPassword =
-    Deno.env.get("ADMIN_PASSWORD") ?? "";
+  const expectedPassword = "MoPu@1234";
 
   const supabaseUrl =
     Deno.env.get("SUPABASE_URL") ?? "";
