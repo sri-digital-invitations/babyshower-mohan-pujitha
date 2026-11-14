@@ -6,9 +6,12 @@
 
 const SUPABASE_URL = "https://bedystobmjhluvdvqenx.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_p5Ff4b5_aaKkAT5G1v59xA_NgNHAyWQ";
-const FUNCTION_NAME = "admin-dashboard";
+// Fixed admin password — visible in the public website source.
+const ADMIN_PASSWORD = "MoPu@1234";
 
 const $ = (id) => document.getElementById(id);
+
+let adminPassword = ADMIN_PASSWORD;
 
 let adminPassword = "";
 
@@ -85,72 +88,21 @@ async function callAdmin(action, extra = {}) {
 }
 
 // Login
-$("loginForm").addEventListener("submit", async (event) => {
-
-  event.preventDefault();
-
-  $("loginError").textContent = "";
-
-  if (
-    !SUPABASE_URL.startsWith("https://") ||
-    SUPABASE_PUBLISHABLE_KEY.includes("YOUR_SUPABASE")
-  ) {
-    $("loginError").textContent =
-      "Please configure the Supabase project URL and publishable key in admin.js.";
-
-    return;
-  }
-
-  adminPassword = $("adminPassword").value;
-
-  $("loginBtn").disabled = true;
-  $("loginBtn").textContent = "Checking…";
-
-  try {
-
-    await loadDashboard();
-
+// Automatically open the dashboard using the configured password.
+async function initialiseDashboard() {
     $("loginPanel").hidden = true;
     $("dashboard").hidden = false;
-    $("logoutBtn").hidden = false;
 
-  } catch (error) {
-
-    adminPassword = "";
-
-    $("loginError").textContent =
-      error.message || "Unable to sign in. Check the password and configuration.";
-
-  } finally {
-
-    $("loginBtn").disabled = false;
-    $("loginBtn").textContent = "Open dashboard";
-
-  }
-});
-
-// Logout
-$("logoutBtn").addEventListener("click", () => {
-
-  adminPassword = "";
-
-  dashboardData = {
-    rsvps: [],
-    wishes: [],
-    predictions: {
-      girl_count: 0,
-      boy_count: 0
+    try {
+        await loadDashboard();
+    } catch (error) {
+        setStatus(error.message || "Unable to load dashboard.", true);
     }
-  };
+}
 
-  $("dashboard").hidden = true;
-  $("loginPanel").hidden = false;
-  $("logoutBtn").hidden = true;
-  $("adminPassword").value = "";
+initialiseDashboard();
 
-  setStatus("");
 
-});
 
 // Load dashboard data
 async function loadDashboard() {
