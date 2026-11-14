@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7a1728">
+  <title>Baby Shower Admin | Mohan Sai & Pujitha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="flower">✿</span><div><strong>Baby Shower Admin</strong><small>Mohan Sai & Pujitha · 19 November 2026</small></div></div>
+    <button id="logoutBtn" class="button button-light" hidden>Log out</button>
+  </header>
+
+  <main class="shell">
+    <section id="loginPanel" class="login-card">
+      <div class="login-flower">❀</div>
+      <p class="eyebrow">PRIVATE EVENT MANAGEMENT</p>
+      <h1>Welcome back</h1>
+      <p class="muted">Enter the admin password to view RSVPs, predictions and guest wishes.</p>
+      <form id="loginForm">
+        <label for="adminPassword">Admin password</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Enter admin password">
+        <button class="button button-primary full" id="loginBtn" type="submit">Open dashboard</button>
+        <p id="loginError" class="status error" role="alert"></p>
+      </form>
+      <p class="security-note">This page is protected by a server-side password check. Do not share the admin password.</p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="welcome-row">
+        <div><p class="eyebrow">EVENT OVERVIEW</p><h1>Guest dashboard</h1><p class="muted">A single place to manage event responses and guest messages.</p></div>
+        <button id="refreshBtn" class="button button-light">↻ Refresh</button>
+      </div>
+
+      <div class="metrics">
+        <article class="metric"><span class="metric-icon">👥</span><strong id="metricConfirmed">—</strong><span>Confirmed attendees</span></article>
+        <article class="metric"><span class="metric-icon">📝</span><strong id="metricResponses">—</strong><span>RSVP responses</span></article>
+        <article class="metric"><span class="metric-icon">💌</span><strong id="metricWishes">—</strong><span>Total wishes</span></article>
+        <article class="metric"><span class="metric-icon">⏳</span><strong id="metricPending">—</strong><span>Pending approval</span></article>
+      </div>
+
+      <nav class="tabs" aria-label="Dashboard sections">
+        <button class="tab active" data-tab="rsvps">RSVPs</button>
+        <button class="tab" data-tab="predictions">Girl / Boy predictions</button>
+        <button class="tab" data-tab="wishes">Wishes & blessings</button>
+      </nav>
+
+      <section id="panel-rsvps" class="panel">
+        <div class="panel-heading"><div><h2>RSVP management</h2><p class="muted">Guest attendance and expected headcount.</p></div><button class="button button-outline" id="exportRsvps">Export CSV</button></div>
+        <div class="summary-strip"><div><span>Attending responses</span><strong id="rsvpYes">0</strong></div><div><span>Unable to attend</span><strong id="rsvpNo">0</strong></div><div><span>Total expected guests</span><strong id="rsvpHeadcount">0</strong></div></div>
+        <div class="table-tools"><input id="rsvpSearch" type="search" placeholder="Search guest name"><select id="rsvpFilter"><option value="all">All responses</option><option value="yes">Attending</option><option value="no">Not attending</option></select></div>
+        <div class="table-wrap"><table><thead><tr><th>Guest name</th><th>Response</th><th>People</th><th>Submitted</th></tr></thead><tbody id="rsvpRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div>
+      </section>
+
+      <section id="panel-predictions" class="panel" hidden>
+        <div class="panel-heading"><div><h2>Guest predictions</h2><p class="muted">Anonymous votes only. Individual voters cannot be identified.</p></div></div>
+        <div class="prediction-grid">
+          <article class="prediction-card"><span>👧</span><p>Girl predictions</p><strong id="girlCount">0</strong><div class="bar"><i id="girlBar"></i></div><small id="girlPercent">0%</small></article>
+          <article class="prediction-card"><span>👦</span><p>Boy predictions</p><strong id="boyCount">0</strong><div class="bar"><i id="boyBar"></i></div><small id="boyPercent">0%</small></article>
+        </div>
+        <p class="note">These are guests’ guesses only. They do not represent or reveal the baby's actual sex.</p>
+      </section>
+
+      <section id="panel-wishes" class="panel" hidden>
+        <div class="panel-heading"><div><h2>Wishes & blessings</h2><p class="muted">Approve a wish to display it on the public Fun Zone wishes wall.</p></div><button class="button button-outline" id="exportWishes">Export CSV</button></div>
+        <div class="table-tools"><select id="wishFilter"><option value="pending">Pending approval</option><option value="approved">Approved</option><option value="all">All wishes</option></select><input id="wishSearch" type="search" placeholder="Search name or message"></div>
+        <div id="wishList" class="wish-list"><p class="empty">Loading wishes…</p></div>
+      </section>
+      <p id="dashboardStatus" class="status" role="status"></p>
+      <p class="footer-note">Private admin page · Data is stored in your Supabase project.</p>
+    </section>
+  </main>
+  <script src="admin.js"></script>
+</body>
+</html>
