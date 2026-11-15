@@ -39,30 +39,29 @@ $("languageToggle").addEventListener("click", () => {
 });
 
 
+
 const responseInputs = document.querySelectorAll('input[name="response"]');
 const guestCountWrap = $("guestCountWrap");
 const guestCountInput = $("guestCount");
 
 function updateGuestCountVisibility() {
-  const selectedResponse = document.querySelector(
+  const response = document.querySelector(
     'input[name="response"]:checked'
   )?.value;
 
-  const attending = selectedResponse === "yes";
+  guestCountWrap.hidden = response === "no" || !response;
+  guestCountInput.required = response === "yes";
 
-  guestCountWrap.hidden = !attending;
-  guestCountInput.required = attending;
-
-  if (!attending) {
+  if (response === "no" || !response) {
     guestCountInput.value = "0";
-  } else if (Number(guestCountInput.value) < 1) {
+  } else if (guestCountInput.value === "0") {
     guestCountInput.value = "1";
   }
 }
 
-responseInputs.forEach(input => {
-  input.addEventListener("change", updateGuestCountVisibility);
-});
+responseInputs.forEach(input =>
+  input.addEventListener("change", updateGuestCountVisibility)
+);
 
 function setRsvpStatus(message, isError = false) {
   const status = $("rsvpStatus");
@@ -73,19 +72,6 @@ function setRsvpStatus(message, isError = false) {
 $("rsvpForm").addEventListener("submit", async (event) => {
   event.preventDefault();
   setRsvpStatus("");
-
-  if (
-    !SUPABASE_URL.startsWith("https://") ||
-    !SUPABASE_ANON_KEY
-  ) {
-    setRsvpStatus(
-      language === "en"
-        ? "The RSVP form is not configured yet. Please contact the hosts."
-        : "RSVP வசதி இன்னும் அமைக்கப்படவில்லை. அழைப்பாளர்களைத் தொடர்பு கொள்ளவும்.",
-      true
-    );
-    return;
-  }
 
   const guestName = $("guestName").value.trim();
 
@@ -105,29 +91,35 @@ $("rsvpForm").addEventListener("submit", async (event) => {
 
   const responseValue = selectedResponse.value;
 
-  if (!["yes", "maybe", "no"].includes(responseValue)) {
-    setRsvpStatus(
-      language === "en"
-        ? "Please select a valid RSVP response."
-        : "சரியான வருகை பதிலைத் தேர்ந்தெடுக்கவும்.",
-      true
-    );
-    return;
-  }
-
   const guestCount =
-    responseValue === "yes" ? Number(guestCountInput.value) : 0;
+    responseValue === "no"
+      ? 0
+      : guestCountInput.value.trim() === ""
+        ? null
+        : Number(guestCountInput.value);
 
   if (
     responseValue === "yes" &&
-    (!Number.isInteger(guestCount) ||
-      guestCount < 1 ||
-      guestCount > 30)
+    (!Number.isInteger(guestCount) || guestCount < 1 || guestCount > 30)
   ) {
     setRsvpStatus(
       language === "en"
         ? "Please enter a guest count between 1 and 30."
         : "1 முதல் 30 வரையிலான எண்ணிக்கையை உள்ளிடவும்.",
+      true
+    );
+    return;
+  }
+
+  if (
+    responseValue === "maybe" &&
+    guestCount !== null &&
+    (!Number.isInteger(guestCount) || guestCount < 1 || guestCount > 30)
+  ) {
+    setRsvpStatus(
+      language === "en"
+        ? "Guest count must be between 1 and 30."
+        : "விருந்தினர்களின் எண்ணிக்கை 1 முதல் 30 வரை இருக்க வேண்டும்.",
       true
     );
     return;
@@ -182,8 +174,8 @@ $("rsvpForm").addEventListener("submit", async (event) => {
 
     setRsvpStatus(
       language === "en"
-        ? "We couldn't submit your RSVP. Please check your connection and try again."
-        : "உங்கள் பதிலைப் பதிவு செய்ய முடியவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+        ? "We couldn't submit your RSVP. Please try again."
+        : "உங்கள் பதிலைப் பதிவு செய்ய முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
       true
     );
 
@@ -193,7 +185,6 @@ $("rsvpForm").addEventListener("submit", async (event) => {
       language === "en" ? "Submit RSVP" : "வருகையை உறுதிப்படுத்தவும்";
   }
 });
-
 
 $("shareBtn").addEventListener("click", async () => {
   const shareData = {
