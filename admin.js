@@ -13,8 +13,6 @@ const $ = (id) => document.getElementById(id);
 
 let adminPassword = ADMIN_PASSWORD;
 
-let adminPassword = "";
-
 let dashboardData = {
   rsvps: [],
   wishes: [],
