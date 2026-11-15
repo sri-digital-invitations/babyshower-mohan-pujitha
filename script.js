@@ -49,10 +49,13 @@ function updateGuestCountVisibility() {
     'input[name="response"]:checked'
   )?.value;
 
-  guestCountWrap.hidden = response === "no" || !response;
+  const hideGuestCount = response === "no" || !response;
+
+  guestCountWrap.hidden = hideGuestCount;
+  guestCountInput.disabled = hideGuestCount;
   guestCountInput.required = response === "yes";
 
-  if (response === "no" || !response) {
+  if (hideGuestCount) {
     guestCountInput.value = "0";
   } else if (guestCountInput.value === "0") {
     guestCountInput.value = "1";
