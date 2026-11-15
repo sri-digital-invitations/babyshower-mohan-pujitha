@@ -38,16 +38,31 @@ $("languageToggle").addEventListener("click", () => {
   $("languageToggle").textContent = language === "en" ? "தமிழ்" : "English";
 });
 
-const attendingInputs = document.querySelectorAll('input[name="attending"]');
+
+const responseInputs = document.querySelectorAll('input[name="response"]');
 const guestCountWrap = $("guestCountWrap");
 const guestCountInput = $("guestCount");
-attendingInputs.forEach(input => input.addEventListener("change", () => {
-  const attending = document.querySelector('input[name="attending"]:checked')?.value === "true";
+
+function updateGuestCountVisibility() {
+  const selectedResponse = document.querySelector(
+    'input[name="response"]:checked'
+  )?.value;
+
+  const attending = selectedResponse === "yes";
+
   guestCountWrap.hidden = !attending;
   guestCountInput.required = attending;
-  if (!attending) guestCountInput.value = "0";
-  else if (Number(guestCountInput.value) < 1) guestCountInput.value = "1";
-}));
+
+  if (!attending) {
+    guestCountInput.value = "0";
+  } else if (Number(guestCountInput.value) < 1) {
+    guestCountInput.value = "1";
+  }
+}
+
+responseInputs.forEach(input => {
+  input.addEventListener("change", updateGuestCountVisibility);
+});
 
 function setRsvpStatus(message, isError = false) {
   const status = $("rsvpStatus");
@@ -59,49 +74,95 @@ $("rsvpForm").addEventListener("submit", async (event) => {
   event.preventDefault();
   setRsvpStatus("");
 
-  if (!SUPABASE_URL.startsWith("https://") || SUPABASE_ANON_KEY.includes("YOUR_SUPABASE")) {
-    setRsvpStatus(language === "en"
-      ? "The RSVP form is not configured yet. Please contact the hosts."
-      : "RSVP வசதி இன்னும் அமைக்கப்படவில்லை. அழைப்பாளர்களைத் தொடர்பு கொள்ளவும்.", true);
+  if (
+    !SUPABASE_URL.startsWith("https://") ||
+    !SUPABASE_ANON_KEY
+  ) {
+    setRsvpStatus(
+      language === "en"
+        ? "The RSVP form is not configured yet. Please contact the hosts."
+        : "RSVP வசதி இன்னும் அமைக்கப்படவில்லை. அழைப்பாளர்களைத் தொடர்பு கொள்ளவும்.",
+      true
+    );
     return;
   }
 
   const guestName = $("guestName").value.trim();
-  const selectedAttendance = document.querySelector('input[name="attending"]:checked');
-  if (!guestName || !selectedAttendance) {
-    setRsvpStatus(language === "en" ? "Please enter your name and select your response." : "உங்கள் பெயரையும் வருகை பதிலையும் தெரிவிக்கவும்.", true);
+
+  const selectedResponse = document.querySelector(
+    'input[name="response"]:checked'
+  );
+
+  if (!guestName || !selectedResponse) {
+    setRsvpStatus(
+      language === "en"
+        ? "Please enter your name and select your response."
+        : "உங்கள் பெயரையும் வருகை பதிலையும் தெரிவிக்கவும்.",
+      true
+    );
     return;
   }
 
-  const attending = selectedAttendance.value === "true";
-  const guestCount = attending ? Number(guestCountInput.value) : 0;
-  if (attending && (!Number.isInteger(guestCount) || guestCount < 1 || guestCount > 30)) {
-    setRsvpStatus(language === "en" ? "Please enter a guest count between 1 and 30." : "1 முதல் 30 வரையிலான எண்ணிக்கையை உள்ளிடவும்.", true);
+  const responseValue = selectedResponse.value;
+
+  if (!["yes", "maybe", "no"].includes(responseValue)) {
+    setRsvpStatus(
+      language === "en"
+        ? "Please select a valid RSVP response."
+        : "சரியான வருகை பதிலைத் தேர்ந்தெடுக்கவும்.",
+      true
+    );
+    return;
+  }
+
+  const guestCount =
+    responseValue === "yes" ? Number(guestCountInput.value) : 0;
+
+  if (
+    responseValue === "yes" &&
+    (!Number.isInteger(guestCount) ||
+      guestCount < 1 ||
+      guestCount > 30)
+  ) {
+    setRsvpStatus(
+      language === "en"
+        ? "Please enter a guest count between 1 and 30."
+        : "1 முதல் 30 வரையிலான எண்ணிக்கையை உள்ளிடவும்.",
+      true
+    );
     return;
   }
 
   const submitButton = $("rsvpSubmit");
   submitButton.disabled = true;
-  submitButton.textContent = language === "en" ? "Submitting…" : "அனுப்பப்படுகிறது…";
+  submitButton.textContent =
+    language === "en" ? "Submitting…" : "அனுப்பப்படுகிறது…";
 
   try {
-    const response = await fetch(`${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/rpc/submit_guest_rsvp`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
-      },
-      body: JSON.stringify({
-        p_guest_name: guestName,
-        p_attending: attending,
-        p_guest_count: guestCount
-      })
-    });
+    const response = await fetch(
+      `${SUPABASE_URL.replace(/\/$/, "")}/rest/v1/rpc/submit_guest_rsvp`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({
+          p_guest_name: guestName,
+          p_response: responseValue,
+          p_guest_count: guestCount
+        })
+      }
+    );
 
     if (!response.ok) {
       let detail = "";
-      try { const body = await response.json(); detail = body.message || body.details || ""; } catch (_) {}
+      try {
+        const body = await response.json();
+        detail = body.message || body.details || body.hint || "";
+      } catch (_) {}
+
       throw new Error(detail || `Request failed (${response.status})`);
     }
 
@@ -109,19 +170,30 @@ $("rsvpForm").addEventListener("submit", async (event) => {
     guestCountWrap.hidden = true;
     guestCountInput.required = false;
     guestCountInput.value = "1";
-    setRsvpStatus(language === "en"
-      ? "Thank you! Your RSVP has been recorded successfully."
-      : "நன்றி! உங்கள் வருகை பதில் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது.");
+
+    setRsvpStatus(
+      language === "en"
+        ? "Thank you! Your RSVP has been recorded successfully."
+        : "நன்றி! உங்கள் வருகை பதில் வெற்றிகரமாகப் பதிவு செய்யப்பட்டது."
+    );
+
   } catch (error) {
     console.error("RSVP submission failed:", error);
-    setRsvpStatus(language === "en"
-      ? "We couldn't submit your RSVP. Please check your connection and try again."
-      : "உங்கள் பதிலைப் பதிவு செய்ய முடியவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.", true);
+
+    setRsvpStatus(
+      language === "en"
+        ? "We couldn't submit your RSVP. Please check your connection and try again."
+        : "உங்கள் பதிலைப் பதிவு செய்ய முடியவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+      true
+    );
+
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = language === "en" ? "Submit RSVP" : "வருகையை உறுதிப்படுத்தவும்";
+    submitButton.textContent =
+      language === "en" ? "Submit RSVP" : "வருகையை உறுதிப்படுத்தவும்";
   }
 });
+
 
 $("shareBtn").addEventListener("click", async () => {
   const shareData = {
