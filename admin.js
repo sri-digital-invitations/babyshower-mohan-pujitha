@@ -7,7 +7,7 @@
 const SUPABASE_URL = "https://bedystobmjhluvdvqenx.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_p5Ff4b5_aaKkAT5G1v59xA_NgNHAyWQ";
 // Fixed admin password — visible in the public website source.
-const ADMIN_PASSWORD = "MoPu@1234";
+const ADMIN_PASSWORD = "MoPu@12345";
 
 const $ = (id) => document.getElementById(id);
 
