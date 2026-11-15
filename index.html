@@ -76,27 +76,130 @@
       <p class="with-love" data-en="With love," data-ta="அன்புடன்,">With love,</p>
       <h2 class="signature">Mohan Sai <span>&</span> Pujitha</h2>
     </section>
-    <section class="rsvp-section section-shell">
-      <p class="eyebrow" data-en="KINDLY LET US KNOW" data-ta="தயவுசெய்து உங்கள் வருகையைத் தெரிவிக்கவும்">KINDLY LET US KNOW</p>
-      <h2 data-en="RSVP – Will you join us?" data-ta="வருகையை உறுதிப்படுத்துங்கள்">RSVP – Will you join us?</h2>
-      <p data-en="Please confirm your attendance and the number of guests joining you." data-ta="உங்கள் வருகையையும் உங்களுடன் வருபவர்களின் எண்ணிக்கையையும் உறுதிப்படுத்தவும்.">Please confirm your attendance and the number of guests joining you.</p>
-      <form id="rsvpForm" class="rsvp-form">
-        <label for="guestName" data-en="Your name" data-ta="உங்கள் பெயர்">Your name</label>
-        <input id="guestName" name="guestName" type="text" maxlength="100" autocomplete="name" required placeholder="Enter your name" data-placeholder-en="Enter your name" data-placeholder-ta="உங்கள் பெயரை உள்ளிடவும்">
-        <fieldset class="attendance-fieldset">
-          <legend data-en="Will you be attending?" data-ta="நீங்கள் விழாவிற்கு வருவீர்களா?">Will you be attending?</legend>
-          <label class="choice-label"><input type="radio" name="attending" value="true" required> <span data-en="Yes, we will be there" data-ta="ஆம், நாங்கள் வருகிறோம்">Yes, we will be there</span></label>
-          <label class="choice-label"><input type="radio" name="attending" value="false"> <span data-en="Sorry, unable to attend" data-ta="மன்னிக்கவும், வர இயலாது">Sorry, unable to attend</span></label>
-        </fieldset>
-        <div id="guestCountWrap" class="guest-count-wrap" hidden>
-          <label for="guestCount" data-en="Number of people attending (including you)" data-ta="வருபவர்களின் எண்ணிக்கை (உங்களையும் சேர்த்து)">Number of people attending (including you)</label>
-          <input id="guestCount" name="guestCount" type="number" min="1" max="30" step="1" value="1" inputmode="numeric">
-        </div>
-        <button class="primary-button rsvp-submit" id="rsvpSubmit" type="submit" data-en="Submit RSVP" data-ta="வருகையை உறுதிப்படுத்தவும்">Submit RSVP</button>
-        <p class="rsvp-status" id="rsvpStatus" role="status" aria-live="polite"></p>
-      </form>
-      <p class="tiny-note" data-en="Your response will be shared privately with the hosts for event planning." data-ta="நிகழ்ச்சி ஏற்பாட்டிற்காக உங்கள் பதில் அழைப்பாளர்களுடன் மட்டும் பகிரப்படும்.">Your response will be shared privately with the hosts for event planning.</p>
-    </section>
+    
+<section class="rsvp-section section-shell">
+
+  <p class="eyebrow"
+     data-en="KINDLY LET US KNOW"
+     data-ta="தயவுசெய்து உங்கள் வருகையைத் தெரிவிக்கவும்">
+    KINDLY LET US KNOW
+  </p>
+
+  <h2
+    data-en="RSVP – Will you join us?"
+    data-ta="வருகையை உறுதிப்படுத்துங்கள்">
+    RSVP – Will you join us?
+  </h2>
+
+  <p
+    data-en="Please let us know whether you can join us."
+    data-ta="நீங்கள் விழாவில் கலந்து கொள்ள முடியுமா என்பதைத் தெரிவிக்கவும்.">
+    Please let us know whether you can join us.
+  </p>
+
+  <form id="rsvpForm" class="rsvp-form">
+
+    <label for="guestName"
+      data-en="Your name"
+      data-ta="உங்கள் பெயர்">
+      Your name
+    </label>
+
+    <input
+      id="guestName"
+      name="guestName"
+      type="text"
+      maxlength="100"
+      autocomplete="name"
+      required
+      placeholder="Enter your name"
+      data-placeholder-en="Enter your name"
+      data-placeholder-ta="உங்கள் பெயரை உள்ளிடவும்">
+
+    <fieldset class="attendance-fieldset">
+
+      <legend
+        data-en="Will you be attending?"
+        data-ta="நீங்கள் விழாவிற்கு வருவீர்களா?">
+        Will you be attending?
+      </legend>
+
+      <label class="choice-label">
+        <input type="radio" name="response" value="yes" required>
+        <span
+          data-en="Yes, we will be there"
+          data-ta="ஆம், நாங்கள் வருகிறோம்">
+          Yes, we will be there
+        </span>
+      </label>
+
+      <label class="choice-label">
+        <input type="radio" name="response" value="maybe">
+        <span
+          data-en="Maybe, we will confirm later"
+          data-ta="வர முயற்சிக்கிறோம், பின்னர் உறுதிப்படுத்துகிறோம்">
+          Maybe, we will confirm later
+        </span>
+      </label>
+
+      <label class="choice-label">
+        <input type="radio" name="response" value="no">
+        <span
+          data-en="Sorry, unable to attend"
+          data-ta="மன்னிக்கவும், வர இயலாது">
+          Sorry, unable to attend
+        </span>
+      </label>
+
+    </fieldset>
+
+    <div id="guestCountWrap" class="guest-count-wrap" hidden>
+
+      <label for="guestCount"
+        data-en="Number of people attending (including you)"
+        data-ta="வருபவர்களின் எண்ணிக்கை (உங்களையும் சேர்த்து)">
+        Number of people attending (including you)
+      </label>
+
+      <input
+        id="guestCount"
+        name="guestCount"
+        type="number"
+        min="1"
+        max="30"
+        step="1"
+        value="1"
+        inputmode="numeric">
+
+    </div>
+
+    <button
+      class="primary-button rsvp-submit"
+      id="rsvpSubmit"
+      type="submit"
+      data-en="Submit RSVP"
+      data-ta="வருகையை உறுதிப்படுத்தவும்">
+      Submit RSVP
+    </button>
+
+    <p
+      class="rsvp-status"
+      id="rsvpStatus"
+      role="status"
+      aria-live="polite">
+    </p>
+
+  </form>
+
+  <p
+    class="tiny-note"
+    data-en="Your response will be shared privately with the hosts for event planning."
+    data-ta="நிகழ்ச்சி ஏற்பாட்டிற்காக உங்கள் பதில் அழைப்பாளர்களுடன் மட்டும் பகிரப்படும்.">
+    Your response will be shared privately with the hosts for event planning.
+  </p>
+
+</section>
+
     <section class="share-section">
       <p data-en="Please share in our happiness" data-ta="எங்கள் மகிழ்ச்சியில் நீங்களும் பங்கேற்குங்கள்">Please share in our happiness</p>
       <button class="share-button" id="shareBtn" type="button"><span>↗</span> <span data-en="Share invitation" data-ta="அழைப்பிதழைப் பகிரவும்">Share invitation</span></button>
