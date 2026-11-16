@@ -6,6 +6,7 @@
 
 const SUPABASE_URL = "https://bedystobmjhluvdvqenx.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_p5Ff4b5_aaKkAT5G1v59xA_NgNHAyWQ";
+const FUNCTION_NAME = "admin-dashboard";
 // Fixed admin password — visible in the public website source.
 const ADMIN_PASSWORD = "MoPu@12345";
 
